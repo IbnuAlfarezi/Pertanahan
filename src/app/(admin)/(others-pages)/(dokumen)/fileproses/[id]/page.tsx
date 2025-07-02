@@ -334,13 +334,28 @@ export default function Page({ params }: { params: { id: string } }) {
                 )}
             </div>
             {previewPdfUrl && (
-                <Modal isOpen={isPreviewModalOpen} onClose={() => setIsPreviewModalOpen(false)} isFullscreen>
-                    <div className="h-screen w-full flex flex-col">
+                <Modal isOpen={isPreviewModalOpen} onClose={() => setIsPreviewModalOpen(false)} className="w-full sm:w-96 md:w-1/2 lg:w-1/3">
+                    <div className="h-[90vh] flex flex-col">
                         <iframe
                             src={previewPdfUrl}
                             className="flex-1 w-full h-full border-none"
                             title="Preview PDF"
                         ></iframe>
+                        <div className="flex justify-between gap-2 mt-4">
+                            <button
+                                onClick={fetchConfirmSignatureUrl}
+                                disabled={!sessionId}
+                                className={`w-full py-2 rounded text-white font-medium text-xs transition-colors ${sessionId ? "bg-green-600 hover:bg-green-700" : "bg-gray-300 text-gray-500 cursor-not-allowed"}`}
+                            >
+                                Confirm
+                            </button>
+                            <button
+                                onClick={() => setIsPreviewModalOpen(false)}
+                                className="w-full py-2 rounded text-white font-medium text-xs bg-gray-500 hover:bg-gray-600"
+                            >
+                                Retry
+                            </button>
+                        </div>
                     </div>
                 </Modal>
             )}
